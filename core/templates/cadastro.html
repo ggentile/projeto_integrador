@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Minha Farmácia</title>
+	<!-- Adiciona o link para o arquivo CSS do Bootstrap -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		body {
+			background-color: #ff574d;
+			text-align: center;
+		}
+		h1 {
+			margin-top: 100px;
+			font-size: 2.0em;
+		}
+		button {
+			font-size: 1.5em;
+			padding: 10px 30px;
+			border-radius: 20px;
+			background-color: #ff574d;
+			color: #000000 ;
+			border: 2px solid #ff574d;
+			cursor: pointer;
+		}		
+		button:hover {
+			background-color: #0069d9;
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		form {
+			margin: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.form-group {
+			margin-bottom: 10px;
+		}
+		input[type="text"], input[type="password"] {
+			font-size: 1.5em;
+			padding: 10px;
+			border-radius: 20px;
+			border: none;
+			margin-bottom: 10px;
+			width: 300px;
+		}
+		.btn-atualizar {
+			font-size: 1.5em;
+			padding: 10px 30px;
+			border-radius: 20px;
+			background-color: #0069d9;
+			color: #ffffff;
+			border: none;
+			cursor: pointer;
+			margin-top: 10px;
+		}		
+		.btn-atualizar:hover {
+			background-color: #ffffff;
+			color: #0069d9;
+			border: 2px solid #0069d9;
+		}
+		.password-group {
+			margin-bottom: 20px;
+		}
+	</style>
+<!-- Adiciona as importações dos scripts do jQuery e do plugin de máscara -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</head>
+<body>
+	<button onclick="window.history.back()" style="position: absolute; top: 20px; left: 20px;"><i class="bi bi-arrow-left"></i><</button>
+	<h1>Dados de Contato</h1>
+	<br>
+	<br>
+	<form>
+			<div class="form-group">
+				<input type="text" class="form-control" id="inputNome" placeholder="Nome Completo" required>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" id="inputCPF" placeholder="CPF" required>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" id="inputEmail" placeholder="Email" required>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" id="inputSenha" placeholder="Senha" required>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" id="inputConfirmarSenha" placeholder="Confirmar Senha" required>
+			</div>
+		<button class="btn-atualizar">Atualizar</button>
+	</form>
+	<script>
+	
+$(document).ready(function() {
+  // adiciona a validação de CPF
+  $('#inputCPF').mask('000.000.000-00');
+  // adiciona a validação de email
+  $.validator.addMethod("email", function(value, element) {
+    return this.optional(element) || /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value);
+  }, "Por favor, insira um endereço de email válido.");
+  // adiciona a validação de senha forte
+  $.validator.addMethod("senhaForte", function(value, element) {
+    return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/i.test(value);
+  }, "A senha deve conter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula e um número.");
+  // adiciona a validação do formulário
+  $('form').validate({
+    rules: {
+      inputNome: {
+        required: true,
+        minlength: 3
+      },
+      inputCPF: {
+        required: true,
+        minlength: 14
+      },
+      inputEmail: {
+        required: true,
+        email: true
+      },
+      inputSenha: {
+        required: true,
+        senhaForte: true
+      },
+      inputConfirmarSenha: {
+        required: true,
+        equalTo: "#inputSenha"
+      }
+    },
+    messages: {
+      inputNome: {
+        required: "Por favor, insira seu nome completo.",
+        minlength: "Seu nome deve ter pelo menos 3 caracteres."
+      },
+      inputCPF: {
+        required: "Por favor, insira seu CPF.",
+        minlength: "Seu CPF deve ter pelo menos 11 dígitos."
+      },
+      inputEmail: {
+        required: "Por favor, insira seu endereço de email."
+      },
+      inputSenha: {
+        required: "Por favor, insira uma senha.",
+        senhaForte: "A senha deve conter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula e um número."
+      },
+      inputConfirmarSenha: {
+        required: "Por favor, confirme sua senha.",
+        equalTo: "As senhas não correspondem."
+      }
+    },
+    errorElement: "small",
+    errorClass: "text-danger",
+    highlight: function(element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function(element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    },
+    errorPlacement: function(error, element) {
+      error.appendTo(element.parent().next());
+    }
+  });
+});
+</script>
+	
+	<!-- Adiciona o link para o arquivo JavaScript do jQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X
+	
+	
+	<!-- Adiciona o link para o arquivo JavaScript do Bootstrap -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNSbNtx" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

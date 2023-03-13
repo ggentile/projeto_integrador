@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Enviar Arquivo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Adicione o arquivo bootstrap.css -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Defina o estilo "display: none" para o botão de enviar */
+    .enviar-oculto {
+      display: none;
+    }
+    body {
+			background-color: #ff574d;
+			text-align: center;
+		}
+		h1 {
+			margin-top: 100px;
+			font-size: 2.0em;
+		}
+		button {
+			font-size: 1.5em;
+			padding: 10px 30px;
+			border-radius: 20px;
+			background-color: #ff574d;
+			color: #000000 ;
+			border: 2px solid #ff574d;
+			cursor: pointer;
+		}		
+		button:hover {
+		background-color: #0069d9;
+	}
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+	}
+
+	input[type="text"] {
+		font-size: 1.5em;
+		padding: 10px;
+		border-radius: 20px;
+		border: none;
+		margin-bottom: 10px;
+		width: 300px;
+	}
+
+	.btn-atualizar {
+		font-size: 1.5em;
+		padding: 10px 30px;
+		border-radius: 20px;
+		background-color: #0069d9;
+		color: #ffffff;
+		border: none;
+		cursor: pointer;
+	}		
+
+	.btn-atualizar:hover {
+		background-color: #ffffff;
+		color: #0069d9;
+		border: 2px solid #0069d9;
+	}
+	form {
+  margin: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+  </style>
+</head>
+<body>
+	<button onclick="window.history.back()" style="position: absolute; top: 20px; left: 20px;"><i class="bi bi-arrow-left"></i><</button>
+<div class="container">
+  <h2>Enviar Arquivo</h2>
+  <form>
+    <div class="form-group">
+      <label for="arquivo"><h5>Anexar arquivo:</h5></label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="arquivo" accept=".pdf, .doc, .docx, .png, .jpg, .jpeg">
+        <label class="custom-file-label" for="arquivo" data-browse="Anexar arquivo">Escolher arquivo</label>
+		<p id="nomeArquivo"></p>
+      </div>
+    </div>
+    <div class="form-group">      
+      <!-- Adicione a classe "enviar-oculto" para ocultar o botão de enviar -->
+      <button type="button" class="btn btn-success enviar-oculto" id="botaoEnviar" onclick="enviarArquivo()">Enviar</button>
+    </div>
+  </form>
+</div>
+<!-- Adicione o arquivo bootstrap.js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Adicione o script personalizado -->
+<script>
+const arquivoInput = document.querySelector("#arquivo");
+const enviarBotao = document.querySelector("#botaoEnviar");
+
+arquivoInput.addEventListener("change", function() {
+  const arquivo = arquivoInput.files[0];
+  const nomeArquivo = document.querySelector("#nomeArquivo");
+  if (arquivo) {
+    nomeArquivo.innerHTML = "Arquivo anexado: " + arquivo.name;
+    // Exiba o botão de enviar quando um arquivo for anexado
+    enviarBotao.classList.remove("enviar-oculto");
+  } else {
+    nomeArquivo.innerHTML = "";
+    // Oculte o botão de enviar se nenhum arquivo estiver selecionado
+    enviarBotao.classList.add("enviar-oculto");
+  }
+});
+
+function enviarArquivo() {
+  try {
+    const arquivo = arquivoInput.files[0];
+    if (arquivo) {
+      const tipoArquivo = arquivo.type;
+      if (tipoArquivo === "application/pdf" || tipoArquivo === "application/msword" || tipoArquivo === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || tipoArquivo === "image/png" || tipoArquivo === "image/jpeg" || tipoArquivo === "image/jpg") {
+// Use o objeto FormData para enviar o arquivo
+const formData = new FormData();
+formData.append("arquivo", arquivo);
+// Envie o arquivo usando a função fetch
+fetch("/url_do_destino", {
+method: "POST",
+body: formData
+}).then(function(response) {
+if (response.ok) {
+alert("Arquivo enviado com sucesso!");
+} else {
+alert("Erro ao enviar arquivo!");
+}
+}).catch(function(error) {
+console.error(error);
+alert("Erro ao enviar arquivo!");
+});
+} else {
+alert("Formato de arquivo inválido! Por favor, escolha um arquivo PDF, DOC, DOCX, PNG ou JPG.");
+}
+} else {
+alert("Nenhum arquivo selecionado! Por favor, selecione um arquivo para enviar.");
+}
+} catch (error) {
+console.error(error);
+alert("Erro ao enviar arquivo!");
+}
+}
+
+function anexarArquivo() {
+arquivoInput.click();
+}
+</script>
+
+</body>
+</html>
