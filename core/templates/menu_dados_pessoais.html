@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,21 +45,22 @@
 	<br>
 	<br>
 	<div class="container">
+		{% csrf_token %}
 		<div class="row">
 			<div class="col-md-12">
-				<button class="button"><i class="bi bi-person"></i>Informações pessoais ></button>
+				<a href="{% url 'dadospessoais'%}"></a><button class="button" type="submit"><i class="bi bi-person"></i>Informações pessoais ></button>
 				<br><hr>
 			</div>
 			<div class="col-md-12">		
 			</div>
 			<div class="col-md-12">			
-				<button class="button"><i class="bi bi-journal-check"></i> Dados de Contato ></button>
+				<a href="{% url 'dadoscontato'%}"></a><button class="button"><i class="bi bi-journal-check"></i> Dados de Contato ></button>
 				<br><hr>
 			</div>
 			<div class="col-md-12">					
 			</div>
 			<div class="col-md-12">
-				<button class="button"><i class="bi bi-medicine-bottle"></i> Endereço ></button>
+				<a href="{% url 'atualizaendereco'%}"></a><button class="button"><i class="bi bi-medicine-bottle"></i> Endereço ></button>
 				<br><hr>
 			</div>
 		</div>

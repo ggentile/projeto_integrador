@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +74,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 offset-md-4 login-form">
-				<h3 class="text-center"><img src="logo-farmacia.png" alt="Logotipo da farmácia" width="150" height="100"></h3>
+				<h3 class="text-center"><img src="{% static 'logo-farmacia.png%}" alt="Logotipo da farmácia" width="150" height="100"></h3>
 				<form>
 					<div class="form-group">
 						<label for="inputCPF">CPF</label>
@@ -83,7 +84,7 @@
 						<label for="inputSenha">Senha</label>
 						<input type="password" class="form-control" id="inputSenha" placeholder="Digite sua senha">
 					</div>
-					<button type="submit" class="btn btn-primary btn-block">Entrar</button>
+					<a href="{% url 'dashboard' %}"></a><button type="submit" class="btn btn-primary btn-block">Entrar</button>
 				</form>       
 			</div>
 		</div>
@@ -91,7 +92,7 @@
 	<div class="container">
     <div class="row justify-content-center mt-3">
         <div class="col-md-4 d-flex justify-content-center">
-            <button class="btn btn-secondary btn-block">Cadastrar</button>
+            <a href="{% url 'create' %}"></a><button class="btn btn-secondary btn-block">Cadastrar</button>
         </div>
     </div>
 </div>
