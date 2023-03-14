@@ -1,6 +1,7 @@
 from django import forms
 from django.core.mail.message import EmailMessage
 from .models import Usuario, Endereco
+import requests
 
 
 attribs = {
@@ -85,3 +86,56 @@ class CadastroForm(forms.Form):
                 message.append(m)
             return message
         
+class AtualizaInfoPessoais(forms.Form):
+
+    nome_completo = forms.CharField(label='nome_completo', max_length=100)
+    cpf_cliente = forms.CharField(label='cpf_client', max_length=11)
+
+    def atualiza(self):
+        cliente = Usuario.objects.get(nome=requests.session['nome'], cpf=requests.session['cpf'])
+
+        cliente.nome = self.nome_completo
+        cliente.cpf = self.cpf_cliente
+
+        cliente.save()
+        return True
+
+class AtualizaDadosContato(forms.Form):
+    email_novo = forms.EmailField(label='email', max_length=100, required=True)
+    telefone_novo = forms.CharField(label='telefone', max_length=11, required=True)
+
+
+    def atualiza_dados(self):
+        cliente = Usuario.objects.get(nome=requests.session['nome'], cpf=requests.session['cpf'])
+
+        cliente.email = self.email_novo
+        cliente.telefone = self.telefone_novo
+
+        cliente.save()
+
+        return True
+    
+class AtualizaEndereco(forms.Form):
+    endereco_novo = forms.CharField(label='endereço', max_length=100, required=True)
+    numero_novo = forms.IntegerField(label='numero', required=True)
+    complemento_novo = forms.CharField(label='Complemento', max_length=100)
+    bairro_novo = forms.CharField(label='Bairro', max_length=40, required=True)
+    cidade_nova =  forms.CharField(label='cidade', max_length=30, required=True)
+    estado_novo = forms.CharField(label='Estado', max_length=2, required=True)
+    cep_novo = forms.CharField(label='Cep', max_length=8, required=True)
+ 
+
+    def atualiza_ender(self):
+        addr = Endereco.objects.get(endereco=requests.session['endereco'], numero=requests.session['numero'], usuario_id=requests.session['usuario_id'])
+
+        addr.endereco = self.endereco_novo
+        addr.numero = self.numero_novo
+        addr.bairro = self.bairro_novo
+        addr.cidade = self.cidade_nova
+        addr.estado = self.estado_novo
+        addr.cep = self.cep_novo
+        addr.complemento = self.complemento_novo
+
+        addr.save()
+        
+        return True

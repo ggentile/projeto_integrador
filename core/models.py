@@ -23,11 +23,12 @@ class Usuario(Base):
     nome = models.CharField('nome', max_length=40)
     cpf = models.CharField('cpf', max_length=11)
     email = models.EmailField('email', max_length=30)
-    password = models.CharField('senha', widget=forms.PasswordInput)
+    telefone = models.CharField('telefone', max_length=11)
+    password = models.CharField('senha', max_length=200)
 
     class Meta:
         verbose_name = 'Usuário'
-        verbose_plural_name = 'Usuários'
+        verbose_name_plural = 'Usuários'
     
     def __str__(self) -> str:
         return self.nome
@@ -44,7 +45,7 @@ class Endereco(Base):
 
     class Meta:
         verbose_name = 'Endereço'
-        verbose_plural_name = 'Endereços'
+        verbose_name_plural = 'Endereços'
 
     def __str__(self) -> str:
         return self.endereco
@@ -58,17 +59,17 @@ class Remedio(Base):
 
     class Meta:
         verbose_name = 'Remédio'
-        verbose_plural_name = 'Remédios'
+        verbose_name_plural = 'Remédios'
 
     def __str__(self) -> str:
         return self.nome
 
 class Pedido(Base):
     STATUS = (
-        'Aprovado',
-        'Reprovado',
-        'A caminho',
-        'Em separação'
+        (1, 'Aprovado'),
+        (2, 'Reprovado'),
+        (3, 'A caminho'),
+        (4, 'Em separação')
     )
 
     status = models.CharField('Status', max_length=25, choices=STATUS)
@@ -81,7 +82,7 @@ class Pedido(Base):
 
     class Meta:
         verbose_name = 'Pedido'
-        verbose_plural_name = 'Pedidos'
+        verbose_name_plural = 'Pedidos'
 
     def __str__(self) -> str:
         return self.status

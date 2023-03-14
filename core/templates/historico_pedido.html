@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,59 +78,20 @@
 	<div class="container">
 		<h1>Acompanhamento de Pedidos</h1>
 		
+		{% for remedio in Pedidos %}
 		<div class="pedido-container">
 			<div class="row">
 				<div class="col-md-3">
-					<img class="produto-img" src="C:\Users\Guilherme\Desktop\site app\remedio.jpg">
+					<img class="produto-img" src="{% static 'img/remedio.jpg' %}">
 				</div>
 				<div class="col-md-9">
-					<div class="pedido-num">Pedido #123456</div>
-					<div class="pedido-valor">Valor: R$ 29,90</div>
-					<div class="pedido-status status-aguardando">Aguardando</div>
-					<div class="produto-nome">Nome do Produto</div>
+					<div class="pedido-num">Pedido {{% remedio.id %}}</div>
+					<div class="pedido-valor">Valor: {{% remedio.preco %}}</div>
+					<div class="pedido-status status-aguardando">{{% remedio.status %}}</div>
+					<div class="produto-nome">{{% remedio.nome %}}</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="pedido-container">
-			<div class="row">
-				<div class="col-md-3">
-					<img class="produto-img" src="C:\Users\Guilherme\Desktop\site app\remedio.jpg">
-				</div>
-				<div class="col-md-9">
-				<div class="pedido-num">Pedido #789012</div>
-					<div class="pedido-valor">Valor: R$ 49,90</div>
-					<div class="pedido-status status-em-preparo">Em Preparo</div>
-					<div class="produto-nome">Nome do Produto</div>
-				</div>
-			</div>
-		</div>
-		<div class="pedido-container">
-		<div class="row">
-			<div class="col-md-3">
-				<img class="produto-img" src="C:\Users\Guilherme\Desktop\site app\remedio.jpg">
-			</div>
-			<div class="col-md-9">
-				<div class="pedido-num">Pedido #345678</div>
-				<div class="pedido-valor">Valor: R$ 99,90</div>
-				<div class="pedido-status status-saiu-para-entrega">Saiu para entrega</div>
-				<div class="produto-nome">Nome do Produto</div>
-			</div>
-		</div>
+		{% endfor %}
 	</div>
-	
-	<div class="pedido-container">
-		<div class="row">
-			<div class="col-md-3">
-				<img class="produto-img" src="C:\Users\Guilherme\Desktop\site app\remedio.jpg">
-			</div>
-			<div class="col-md-9">
-				<div class="pedido-num">Pedido #246801</div>
-				<div class="pedido-valor">Valor: R$ 69,90</div>
-				<div class="pedido-status status-entregue">Entregue</div>
-				<div class="produto-nome">Nome do Produto</div>
-			</div>
-		</div>
-	</div>
-</div>
 	
